@@ -1,0 +1,37 @@
+<% if session[:user_id] %>
+  <h3> You're in! </h3>
+  <%= link_to 'Logout', 'logout' %>
+<% else %>
+  <h3>Login</h3>
+    <%= form_tag('login', method: 'post', class: 'login-form') do %>
+
+      <%= label_tag :email, 'Email: ' %>
+      <%= text_field_tag :email %><br>
+      <%= label_tag :password, 'Password: ' %>
+      <%= password_field_tag :password %>
+      <br>
+      <br>
+      <%= submit_tag 'Login' %>
+
+  <% end %>
+
+  <h3>Register</h3>
+  <%= form_tag({controller: 'users', action: 'create'}, method: 'post', class: 'register-form') do %>
+    <%= label_tag :name, 'Name : ' %>
+    <%= text_field_tag :name %><br>
+
+    <%= label_tag :email, 'Email : ' %>
+    <%= text_field_tag :email %><br>
+
+    <%= label_tag :password, 'Password : ' %>
+    <%= password_field_tag :password %><br>
+
+    <%= label_tag :password_confirmation, 'Password Confirmation : ' %>
+    <%= password_field_tag :password_confirmation %>
+    <br>
+    <br>
+    <%= submit_tag 'Register!' %>
+  <% end %>
+<% end %>
+
+

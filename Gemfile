@@ -30,6 +30,8 @@ gem 'spring',        group: :development
 gem 'bcrypt', '~> 3.1.7'
 gem 'email_validator'
 
+gem 'bootstrap-sass', '~> 3.3.5'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

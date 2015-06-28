@@ -1,0 +1,8 @@
+<h3>Edit your account</h3>
+
+<%= form_tag({controller: 'account', action: 'add_email_account'}, method: 'post', class: 'register-form') do %>
+  <%= label_tag :email, 'Email : ' %>
+  <%= text_field_tag :email %><br>
+  <br>
+  <%= submit_tag 'Link email' %>
+<% end %>

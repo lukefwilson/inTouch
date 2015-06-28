@@ -1,16 +1,20 @@
 class UsersController < ApplicationController
 
+  skip_before_action :require_login, only: [:login, :create]
+
   def create
     # POST to create new account
     @user = User.new(user_params)
 
     if @user.save
       flash[:notice] = 'Account created!'
+      create_user_session(@user)
+      redirect_to controller: 'account', action: 'edit'
     else
       flash[:notice] = 'FAIL'
+      redirect_to :root
     end
 
-    redirect_to :root
   end
 
   def show
@@ -50,14 +54,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
-  end
-
-  def create_user_session(user)
-    session[:user_id] = user.id
-  end
-
-  def destroy_user_session
-    session[:user_id] = nil
   end
 
 end

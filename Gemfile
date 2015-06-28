@@ -32,6 +32,10 @@ gem 'email_validator'
 
 gem 'bootstrap-sass', '~> 3.3.5'
 
+gem 'contextio'
+
+gem 'dotenv-rails'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

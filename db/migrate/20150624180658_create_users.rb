@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :name,  :null => false
       t.string  :email, :null => false
       t.string  :password_digest, :null => false
-
+      t.string  :contextio_id
 
       t.timestamps
     end

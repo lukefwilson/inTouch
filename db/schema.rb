@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20150624180658) do
     t.string   "name",            null: false
     t.string   "email",           null: false
     t.string   "password_digest", null: false
+    t.string   "contextio_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

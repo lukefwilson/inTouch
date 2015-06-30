@@ -112,6 +112,9 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    seed_dump (3.2.2)
+      activerecord (~> 4)
+      activesupport (~> 4)
     simple_oauth (0.2.0)
     slim (3.0.6)
       temple (~> 0.7.3)
@@ -161,6 +164,7 @@ DEPENDENCIES
   rails (= 4.1.7)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  seed_dump
   slim-rails
   spring
   sqlite3

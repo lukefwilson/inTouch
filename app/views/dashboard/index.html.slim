@@ -25,3 +25,6 @@
       h4
         | Groups
         a.right href="#" +
+    .list-group
+      - for group in @user.groups
+        a.list-group-item href="#" = "#{group.name} #{group.connections.count} members"

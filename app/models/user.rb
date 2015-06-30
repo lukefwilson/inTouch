@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :connections
+  has_many :groups
 
   validates :first_name, presence: true
   validates :email, presence: true, uniqueness: true, email: true

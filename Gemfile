@@ -40,6 +40,8 @@ gem 'slim-rails'
 
 gem 'bourbon'
 
+gem 'seed_dump'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

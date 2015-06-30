@@ -14,4 +14,38 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bourbon";
 @import "*";
+
+$salmon-color: #FF4661;
+$light-grey: #9A9A9A;
+
+
+.main-container {
+  max-width: 1200px;
+}
+
+.module {
+  border: 1px solid $salmon-color;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+
+  .header {
+    color: $light-grey;
+    margin: 0px 30px;
+  }
+
+  .list-group {
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+.right {
+  float: right;
+}

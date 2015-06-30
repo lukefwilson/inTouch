@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = 'Account created!'
       create_user_session(@user)
-      redirect_to controller: 'account', action: 'edit'
+      redirect_to '/dashboard'
     else
       flash[:notice] = 'FAIL'
       redirect_to :root
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Failed to login!"
     end
 
-    redirect_to :root
+    redirect_to '/dashboard'
   end
 
   def logout

@@ -36,6 +36,10 @@ gem 'contextio'
 
 gem 'dotenv-rails'
 
+gem 'slim-rails'
+
+gem 'bourbon'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

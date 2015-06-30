@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'dashboard/index'
+
   get 'account/edit'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -17,6 +19,8 @@ Rails.application.routes.draw do
 
   post 'login' => 'users#login'
   get 'logout' => 'users#logout'
+
+  get 'dashboard' => 'dashboard#index'
 
   get ':controller(/:action(/:id))'
   post ':controller(/:action(/:id))'

@@ -17,8 +17,8 @@
         | Connections
         a.right href="#" +
     .list-group
-      /- for connection in connections
-      /  a.list-group-item href="#" = connection.name
+      - for connection in @user.connections
+        a.list-group-item href="#" = connection.email
 .col-sm-6.no-padding
   .module
     .header

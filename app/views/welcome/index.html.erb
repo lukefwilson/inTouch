@@ -17,8 +17,11 @@
 
   <h3>Register</h3>
   <%= form_tag({controller: 'users', action: 'create'}, method: 'post', class: 'register-form') do %>
-    <%= label_tag :name, 'Name : ' %>
-    <%= text_field_tag :name %><br>
+    <%= label_tag :first_name, 'First Name : ' %>
+    <%= text_field_tag :first_name %><br>
+
+    <%= label_tag :last_name, 'Last Name : ' %>
+    <%= text_field_tag :last_name %><br>
 
     <%= label_tag :email, 'Email : ' %>
     <%= text_field_tag :email %><br>

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :connections
 
-  validates :name, presence: true
+  validates :first_name, presence: true
   validates :email, presence: true, uniqueness: true, email: true
   validates :password, presence: true, confirmation: true
   validates :password_confirmation, presence: true, if: :new_user?

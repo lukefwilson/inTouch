@@ -1,0 +1,30 @@
+.col-sm-6.no-padding
+  .module
+    .header
+      h4
+        | Email
+        a.right href="#" +
+.col-sm-6.no-padding
+  .module
+    .header
+      h4
+        | Account
+        a.right href="#" +
+.col-sm-6.no-padding
+  .module
+    .header
+      h4
+        | Connections
+        a.right href="#" +
+    .list-group
+      - for connection in @user.connections
+        a.list-group-item href="#" = connection.email
+.col-sm-6.no-padding
+  .module
+    .header
+      h4
+        | Groups
+        a.right href="#" +
+    .list-group
+      - for group in @user.groups
+        a.list-group-item href="#" = "#{group.name} #{group.connections.count} members"

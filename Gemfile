@@ -40,6 +40,7 @@ gem 'slim-rails'
 
 gem 'bourbon'
 
+# create seed db out of current db
 gem 'seed_dump'
 
 # Use unicorn as the app server

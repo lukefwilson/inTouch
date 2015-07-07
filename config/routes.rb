@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  get 'connections/index'
+
+  get 'connections/new'
+
+  get 'connections/create'
+
+  get 'connections/show'
+
+  get 'connections/edit'
+
+  get 'connections/update'
+
+  get 'connections/destroy'
+
   get 'dashboard/index'
 
   get 'account/edit'

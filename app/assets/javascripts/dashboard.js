@@ -1,15 +1,46 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-var connectionsId = '#nav-connections';
-var groupsId = '#nav-groups';
-var emailsId = '#nav-emails';
+var connectionsId = 'connections';
+var groupsId = 'groups';
+var emailsId = 'emails';
 
-var selectNavButton = function(navButtonId) {
-  $(connectionsId).removeClass('selected');
-  $(groupsId).removeClass('selected');
-  $(emailsId).removeClass('selected');
-  $(navButtonId).addClass('selected');
+var selectNavContent = function(navName) {
+  var $navContent = $('#' + navName);
+  $navContent.addClass('selected');
+  $navContent.removeClass('not-selected');
+  $('#nav-' + navName).addClass('selected');
+
+  $navContent.removeClass('hidden')
+  $navContent.removeClass('first-load')
+}
+
+var deselectNavContent = function(navName) {
+  var $navContent = $('#' + navName);
+  if ($navContent.hasClass('first-load')) {
+    $navContent.addClass('hidden')
+    $navContent.removeClass('first-load')
+  } else {
+    $navContent.removeClass('selected');
+    $navContent.addClass('not-selected');
+    $('#nav-' + navName).removeClass('selected');
+  }
+}
+
+var switchToNav = function(navName) {
+  if (navName === connectionsId) {
+    selectNavContent(connectionsId);
+    deselectNavContent(groupsId);
+    deselectNavContent(emailsId);
+  } else if (navName === groupsId) {
+    deselectNavContent(connectionsId);
+    selectNavContent(groupsId);
+    deselectNavContent(emailsId);
+  } else if (navName === emailsId) {
+    deselectNavContent(connectionsId);
+    deselectNavContent(groupsId);
+    selectNavContent(emailsId);
+  }
 }
 
 var ready = function() {
@@ -21,7 +52,7 @@ var ready = function() {
 
   routie({
     'connections/:id?': function(id) {
-      selectNavButton(connectionsId);
+      switchToNav(connectionsId);
       if (!id) {
         console.log("Connections");
       } else if (id === "new") {
@@ -32,27 +63,27 @@ var ready = function() {
       }
     },
     'groups': function() {
-      selectNavButton(groupsId);
+      switchToNav(groupsId);
     },
     'emails': function() {
-      selectNavButton(emailsId);
+      switchToNav(emailsId);
     },
     '*': function() {
-      selectNavButton(connectionsId);
+      switchToNav(connectionsId);
     }
   });
 
-  $(connectionsId).click(function(e) {
+  $('#nav-' + connectionsId).click(function(e) {
     e.preventDefault();
     routie('connections');
   });
 
-  $(groupsId).click(function(e) {
+  $('#nav-' + groupsId).click(function(e) {
     e.preventDefault();
     routie('groups');
   });
 
-  $(emailsId).click(function(e) {
+  $('#nav-' + emailsId).click(function(e) {
     e.preventDefault();
     routie('emails');
   });

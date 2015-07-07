@@ -95,6 +95,28 @@ $sidebar-background-color: #222;
 
 /* Sidebar Styles */
 
+@include keyframes(nav-out) {
+  from {
+    left: 0px;
+    opacity: 1;
+  }
+  to {
+    left: $sidebar-width;
+    opacity: 0;
+  }
+}
+
+@include keyframes(nav-in) {
+  from {
+    left: -$sidebar-width;
+    opacity: 0;
+  }
+  to {
+    left: 0px;
+    opacity: 1;
+  }
+}
+
 .sidebar-content {
   position: absolute;
   top: $sidebar-nav-height;
@@ -102,6 +124,18 @@ $sidebar-background-color: #222;
   margin: 0;
   padding: 0;
   list-style: none;
+  opacity: 0;
+
+  &.selected {
+    @include animation(nav-in 0.5s ease);
+    left: 0px;
+    opacity: 1;
+  }
+
+  &.not-selected {
+    @include animation(nav-out 0.5s ease);
+    opacity: 0;
+  }
 
   li {
     text-indent: 20px;

@@ -23,8 +23,15 @@
 
   /! Page Content
   #page-content-wrapper
-    #sidebar-toggle
-      i.fa.fa-caret-down.transition-all
+    #page-header
+      #sidebar-toggle
+        i.fa.fa-caret-down.transition-all
+      span.right = flash[:notice]
+      span.right = flash[:error]
+      a.right href="/logout"
+        i.fa.fa-sign-out
+      a.right href="#settings"
+        i.fa.fa-cog
     .container-fluid
       .row
         .col-lg-12

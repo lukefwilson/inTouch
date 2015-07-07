@@ -32,4 +32,8 @@ $large-screen: "(min-width : 768px)";
   float: right;
 }
 
+.transition-all {
+  @include transition(all 0.5s ease);
+}
+
 @import "*";

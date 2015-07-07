@@ -10,20 +10,16 @@
         td#nav-emails
           i.fa.fa-envelope-o.fa-fw
     ul.sidebar-content#connections.first-load
-      li
-        a href="#" Connections
-      li
-        a href="#" Dashboard
+      - for connection in @user.connections
+        li
+          a href="#connections/#{connection.id}" = connection.email
     ul.sidebar-content#groups.first-load
-      li
-        a href="#" Groups
-      li
-        a href="#" Dashboard
+      - for group in @user.groups
+        li
+          a href="#groups/#{group.id}" = "#{group.name} #{group.connections.count} members"
     ul.sidebar-content#emails.first-load
       li
-        a href="#" Emails
-      li
-        a href="#" Dashboard
+        a href="#emails" Emails
 
   /! Page Content
   #page-content-wrapper

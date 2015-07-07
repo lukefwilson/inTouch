@@ -135,11 +135,13 @@ $sidebar-background-color: #222;
   &.not-selected {
     @include animation(nav-out 0.5s ease);
     opacity: 0;
+    left: -1000px;
   }
 
   li {
     text-indent: 20px;
     line-height: 40px;
+    border-bottom: 1px lighten($sidebar-nav-background-color, 20%) solid;
 
     a {
       display: block;
@@ -149,7 +151,7 @@ $sidebar-background-color: #222;
       &:hover {
         text-decoration: none;
         color: #fff;
-        background: rgba(255,255,255,0.2);
+        background-color: lighten($sidebar-nav-background-color, 20%) ;
       }
 
       &:active, &:focus {

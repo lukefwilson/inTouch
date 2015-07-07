@@ -62,11 +62,27 @@ var ready = function() {
         // check if id exists, else go to connections index
       }
     },
-    'groups': function() {
+    'groups/:id?': function(id) {
       switchToNav(groupsId);
+      if (!id) {
+        console.log("groups");
+      } else if (id === "new") {
+        console.log("YO lets make a new group!");
+      } else {
+        console.log("YO group" + id);
+        // check if id exists, else go to connections index
+      }
     },
-    'emails': function() {
+    'emails': function(id) {
       switchToNav(emailsId);
+      if (!id) {
+        console.log("emails");
+      } else if (id === "new") {
+        console.log("YO lets make a new email!");
+      } else {
+        console.log("YO email" + id);
+        // check if id exists, else go to connections index
+      }
     },
     '*': function() {
       switchToNav(connectionsId);

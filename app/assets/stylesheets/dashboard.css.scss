@@ -151,7 +151,7 @@ $sidebar-background-color: #222;
       &:hover {
         text-decoration: none;
         color: #fff;
-        background-color: lighten($sidebar-nav-background-color, 20%) ;
+        background-color: lighten($sidebar-nav-background-color, 20%);
       }
 
       &:active, &:focus {
@@ -160,4 +160,38 @@ $sidebar-background-color: #222;
 
     }
   }
+}
+
+#sidebar-toggle {
+  position: absolute;
+  color: #fff;
+  font-size: 26px;
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  height: $sidebar-nav-height;
+  width: 20px;
+  background-color: lighten($sidebar-nav-background-color, 20%);
+  cursor: pointer;
+  border-bottom-right-radius: 3px;
+
+  i {
+    @include transform(rotate(-90deg));
+
+    @media #{$large-screen} {
+      @include transform(rotate(90deg));
+    }
+
+    &.toggled {
+      @include transform(rotate(90deg));
+
+      @media #{$large-screen} {
+        @include transform(rotate(-90deg));
+      }
+    }
+  }
+}
+
+.transition-all {
+  @include transition(all 0.5s ease);
 }

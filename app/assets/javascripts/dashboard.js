@@ -45,9 +45,10 @@ var switchToNav = function(navName) {
 
 var ready = function() {
 
-  $("#menu-toggle").click(function(e) {
+  $("#sidebar-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
+    $("#sidebar-toggle i").toggleClass("toggled");
   });
 
   routie({

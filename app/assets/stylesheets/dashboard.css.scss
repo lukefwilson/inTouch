@@ -1,5 +1,10 @@
 $sidebar-nav-height: 40px;
+$sidebar-nav-background-color: #000;
 $sidebar-width: 255px;
+$sidebar-background-color: #222;
+
+/* .toggled on a large screen closes the sidebar.
+   It opens the sidebar on a small screen */
 
 #wrapper {
   padding-left: 0;
@@ -44,7 +49,7 @@ $sidebar-width: 255px;
   height: 100%;
   margin-left: -$sidebar-width;
   overflow-y: auto;
-  background: #000;
+  background: $sidebar-background-color;
   @include transition(all 0.5s ease);
 
   @media #{$large-screen} {
@@ -57,13 +62,23 @@ $sidebar-width: 255px;
   text-align: center;
   height: $sidebar-nav-height;
   font-size: 24px;
+  border-bottom: 1px lighten($sidebar-nav-background-color, 20%) solid;
 
-  i {
+  td {
+    background-color: $sidebar-nav-background-color;
     color: $salmon-color;
+    border-right: 1px lighten($sidebar-nav-background-color, 20%) solid;
+    cursor: pointer;
+
+    &:hover, &.selected {
+      background-color: lighten($sidebar-nav-background-color, 20%);
+      color: lighten($salmon-color, 10%);
+    }
+
   }
 
-  i:hover {
-    color: $salmon-hover-color;
+  &:last-child {
+    border-right: none;
   }
 }
 
@@ -109,5 +124,4 @@ $sidebar-width: 255px;
 
     }
   }
-
 }

@@ -40,6 +40,8 @@ gem 'slim-rails'
 
 gem 'bourbon'
 
+gem 'font-awesome-sass'
+
 # create seed db out of current db
 gem 'seed_dump'
 

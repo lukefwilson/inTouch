@@ -15,10 +15,14 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bourbon";
-@import "*";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 $salmon-color: #FF4661;
+$salmon-hover-color: #A00B29;
 $light-grey: #9A9A9A;
+
+$large-screen: "(min-width : 768px)";
 
 .no-padding {
   padding: 0px;
@@ -27,3 +31,5 @@ $light-grey: #9A9A9A;
 .right {
   float: right;
 }
+
+@import "*";

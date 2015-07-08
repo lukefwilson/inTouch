@@ -224,6 +224,7 @@ $sidebar-background-color: #222;
       margin: 20px;
       background-color: #fff;
       overflow: scroll;
+      border-radius: 3px;
       @include calc(height, "100% - 80px"); // (nav-bar-height + margin * 2)
 
       #modal-content {

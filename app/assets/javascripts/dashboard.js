@@ -21,20 +21,14 @@ var selectNavContent = function(navName) {
   $navContent.removeClass('not-selected');
   $('#nav-' + navName).addClass('selected');
 
-  $navContent.removeClass('hidden')
-  $navContent.removeClass('first-load')
+  $navContent.removeClass('hidden'); // for initial load
 }
 
 var deselectNavContent = function(navName) {
   var $navContent = $('#' + navName);
-  if ($navContent.hasClass('first-load')) {
-    $navContent.addClass('hidden')
-    $navContent.removeClass('first-load')
-  } else {
-    $navContent.removeClass('selected');
-    $navContent.addClass('not-selected');
-    $('#nav-' + navName).removeClass('selected');
-  }
+  $navContent.removeClass('selected');
+  $navContent.addClass('not-selected');
+  $('#nav-' + navName).removeClass('selected');
 }
 
 var switchToNav = function(navName) {
@@ -62,58 +56,44 @@ var ready = function() {
   });
 
   routie({
-    'connections/:id?': function(id) {
-      switchToNav(connectionsId);
-      if (!id) {
-        console.log("Connections");
-      } else if (id === "new") {
+    'connections/:id': function(id) {
+      if (id === "new") {
         showModal();
       } else {
         console.log("YO!" + id);
-        // check if id exists, else go to connections index
       }
     },
-    'groups/:id?': function(id) {
-      switchToNav(groupsId);
-      if (!id) {
-        console.log("groups");
-      } else if (id === "new") {
-        console.log("YO lets make a new group!");
+    'groups/:id': function(id) {
+      if (id === "new") {
+        showModal();
       } else {
         console.log("YO group" + id);
-        // check if id exists, else go to connections index
       }
     },
-    'emails': function(id) {
-      switchToNav(emailsId);
-      if (!id) {
-        console.log("emails");
-      } else if (id === "new") {
-        console.log("YO lets make a new email!");
-      } else {
-        console.log("YO email" + id);
-        // check if id exists, else go to connections index
-      }
+    'emails/:id': function(id) {
+      console.log("YO email" + id);
+    },
+    'settings': function(id) {
+      showModal();
     },
     '*': function() {
-      switchToNav(connectionsId);
       hideModal();
     }
   });
 
   $('#nav-' + connectionsId).click(function(e) {
     e.preventDefault();
-    routie('connections');
+    switchToNav(connectionsId);
   });
 
   $('#nav-' + groupsId).click(function(e) {
     e.preventDefault();
-    routie('groups');
+    switchToNav(groupsId);
   });
 
   $('#nav-' + emailsId).click(function(e) {
     e.preventDefault();
-    routie('emails');
+    switchToNav(emailsId);
   });
 
   $('#modal-view-wrapper').click(function(e) {

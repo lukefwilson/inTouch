@@ -5,6 +5,16 @@ var connectionsId = 'connections';
 var groupsId = 'groups';
 var emailsId = 'emails';
 
+var modalVisible = false;
+var showModal = function() {
+  $('#modal-view-wrapper').fadeIn();
+  modalVisible = true;
+}
+var hideModal = function() {
+  $('#modal-view-wrapper').fadeOut();
+  modalVisible = false;
+}
+
 var selectNavContent = function(navName) {
   var $navContent = $('#' + navName);
   $navContent.addClass('selected');
@@ -57,7 +67,7 @@ var ready = function() {
       if (!id) {
         console.log("Connections");
       } else if (id === "new") {
-        console.log("YO lets make a new connection!");
+        showModal();
       } else {
         console.log("YO!" + id);
         // check if id exists, else go to connections index
@@ -87,6 +97,7 @@ var ready = function() {
     },
     '*': function() {
       switchToNav(connectionsId);
+      hideModal();
     }
   });
 
@@ -104,6 +115,15 @@ var ready = function() {
     e.preventDefault();
     routie('emails');
   });
+
+  $('#modal-view-wrapper').click(function(e) {
+    // close modal on click
+    console.log(e.target);
+    if (e.target.id === 'modal-view-wrapper') {
+      routie('');
+    }
+  });
+
 };
 
 $(document).ready(ready);

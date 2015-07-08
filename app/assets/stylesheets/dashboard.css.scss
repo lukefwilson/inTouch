@@ -30,7 +30,7 @@ $sidebar-background-color: #222;
     }
   }
 
-  #page-content-wrapper {
+  #page-wrapper {
     position: absolute;
     margin-right: -$sidebar-width;
 
@@ -72,7 +72,7 @@ $sidebar-background-color: #222;
 
     &:hover, &.selected {
       background-color: lighten($sidebar-nav-background-color, 20%);
-      color: lighten($salmon-color, 10%);
+      color: darken($salmon-color, 7%);
     }
 
   }
@@ -181,7 +181,7 @@ $sidebar-background-color: #222;
   }
 }
 
-#page-content-wrapper {
+#page-wrapper {
   width: 100%;
   position: absolute;
 
@@ -191,6 +191,7 @@ $sidebar-background-color: #222;
 
   #page-header {
     height: $sidebar-nav-height;
+    background-color: lighten($sidebar-nav-background-color, 20%);
 
     a i {
       color: $salmon-color;
@@ -198,12 +199,39 @@ $sidebar-background-color: #222;
       font-size: 24px;
 
       &:hover {
-        color: darken($salmon-color, 10%);
+        color: darken($salmon-color, 7%);
       }
     }
   }
+
+  .page-content {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 
-.container-fluid {
-  padding: 0px 30px;
+#modal-view-wrapper {
+  position: fixed;
+  height: 100%;
+  background-color: rgba(100, 100, 100, 0.8);
+  top: 40px;
+  display: none;
+
+    #modal-content-container {
+      position: relative;
+      margin: 20px;
+      background-color: #fff;
+      overflow: scroll;
+      @include calc(height, "100% - 80px"); // (nav-bar-height + margin * 2)
+
+      #modal-content {
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
 }
+
+

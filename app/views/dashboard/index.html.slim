@@ -10,10 +10,16 @@
         td#nav-emails
           i.fa.fa-envelope-o.fa-fw
     ul.sidebar-content#connections.first-load
+      li.no-indent.text-center
+        a href="#connections/new"
+          i.fa.fa-plus
       - for connection in @user.connections
         li
           a href="#connections/#{connection.id}" = connection.email
     ul.sidebar-content#groups.first-load
+      li.no-indent.text-center
+        a href="#groups/new"
+          i.fa.fa-plus
       - for group in @user.groups
         li
           a href="#groups/#{group.id}" = "#{group.name} #{group.connections.count} members"
@@ -26,11 +32,11 @@
     #page-header
       #sidebar-toggle
         i.fa.fa-caret-down.transition-all
-      span.right = flash[:notice]
-      span.right = flash[:error]
-      a.right href="/logout"
+      span.pull-right = flash[:notice]
+      span.pull-right = flash[:error]
+      a.pull-right href="/logout"
         i.fa.fa-sign-out
-      a.right href="#settings"
+      a.pull-right href="#settings"
         i.fa.fa-cog
     .container-fluid
       .row

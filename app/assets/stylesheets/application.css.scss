@@ -25,11 +25,11 @@ $light-grey: #9A9A9A;
 $large-screen: "(min-width : 768px)";
 
 .no-padding {
-  padding: 0px;
+  padding: 0px !important;
 }
 
-.right {
-  float: right;
+.no-indent {
+  text-indent: 0px !important;
 }
 
 .transition-all {

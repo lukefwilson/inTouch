@@ -39,6 +39,14 @@ $sidebar-background-color: #222;
       margin-right: 0;
     }
   }
+
+  #modal-view-wrapper {
+    @include calc(width, "100% - #{$sidebar-width}");
+
+    @media #{$large-screen} {
+      width: 100%;
+    }
+  }
 }
 
 #sidebar-wrapper {
@@ -215,9 +223,15 @@ $sidebar-background-color: #222;
 #modal-view-wrapper {
   position: fixed;
   height: 100%;
+  width: 100%;
   background-color: rgba(100, 100, 100, 0.8);
   top: 40px;
   display: none;
+  @include transition(width 0.5s ease);
+
+  @media #{$large-screen} {
+    @include calc(width, "100% - #{$sidebar-width}");
+  }
 
     #modal-content-container {
       position: relative;
@@ -225,7 +239,7 @@ $sidebar-background-color: #222;
       background-color: #fff;
       overflow: scroll;
       border-radius: 3px;
-      @include calc(height, "100% - 80px"); // (nav-bar-height + margin * 2)
+      // @include calc(height, "100% - #{$sidebar-nav-height + 20 * 2}"); // (nav-bar-height + margin * 2)
 
       #modal-content {
         padding: 20px;

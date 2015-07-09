@@ -239,7 +239,6 @@ $sidebar-background-color: #222;
       background-color: #fff;
       overflow: scroll;
       border-radius: 3px;
-      // @include calc(height, "100% - #{$sidebar-nav-height + 20 * 2}"); // (nav-bar-height + margin * 2)
 
       #modal-content {
         padding: 20px;
@@ -249,4 +248,7 @@ $sidebar-background-color: #222;
     }
 }
 
-
+button i {
+  margin-right: 5px;
+  margin-left: -5px;
+}

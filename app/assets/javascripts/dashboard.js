@@ -48,6 +48,33 @@ var switchToNav = function(navName) {
   }
 }
 
+var postForm = function(formButton, postUrl) {
+  var $form = $(formButton.parentElement);
+  var $formButton = $(formButton);
+
+  $formButton.prop('disabled', true);
+
+  $buttonIcon = $formButton.children('i');
+  $buttonIcon.removeClass('fa-plus').addClass('fa-circle-o-notch fa-spin')
+
+  $.ajax({
+    type: "POST",
+    url: postUrl,
+    data: $form.serialize(),
+    dataType: "json",
+    success: function(response){
+      routie('connections/' + response.id);
+    },
+    error: function(response) {
+      $buttonIcon.removeClass('fa-circle-o-notch fa-spin').addClass('fa-plus')
+      $formButton.prop('disabled', false);
+      // show validation errors
+      // response.responseJSON.errors
+    }
+  });
+  return false;
+}
+
 var ready = function() {
 
   $("#sidebar-toggle").click(function(e) {
@@ -106,7 +133,6 @@ var ready = function() {
       routie('');
     }
   });
-
 };
 
 $(document).ready(ready);

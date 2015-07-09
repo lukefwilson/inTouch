@@ -1,14 +1,14 @@
 class ConnectionsController < ApplicationController
-  def index
-  end
-
-  def new
-  end
 
   def create
-  end
+    new_connection = Connection.new(connection_params)
+    new_connection.user = current_user
 
-  def show
+    if new_connection.save
+      render json: new_connection
+    else
+      render json: {errors: new_connection.errors.full_messages}, status: 422
+    end
   end
 
   def edit
@@ -18,5 +18,11 @@ class ConnectionsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def connection_params
+    params.permit(:first_name, :last_name, :email)
   end
 end

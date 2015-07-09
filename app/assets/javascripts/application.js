@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree ../../../vendor/assets/javascripts/.
+//= require handlebars
+//= require_tree ./templates
 //= require_tree .

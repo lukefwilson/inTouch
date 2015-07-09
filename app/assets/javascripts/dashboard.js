@@ -6,7 +6,8 @@ var groupsId = 'groups';
 var emailsId = 'emails';
 
 var modalVisible = false;
-var showModal = function() {
+var showModal = function(template) {
+  $('#modal-content').html(template)
   $('#modal-view-wrapper').fadeIn();
   modalVisible = true;
 }
@@ -58,7 +59,9 @@ var ready = function() {
   routie({
     'connections/:id': function(id) {
       if (id === "new") {
-        showModal();
+        var template = HandlebarsTemplates['connections/new']({title: "title tittss"});
+        console.log(template);
+        showModal(template);
       } else {
         console.log("YO!" + id);
       }

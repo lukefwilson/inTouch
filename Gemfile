@@ -45,6 +45,8 @@ gem 'font-awesome-sass'
 # create seed db out of current db
 gem 'seed_dump'
 
+gem 'handlebars_assets'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

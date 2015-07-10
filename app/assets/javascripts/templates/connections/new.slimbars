@@ -1,17 +1,21 @@
 .row
   .col-md-6.col-md-offset-3
-    form.create
+    form.create role="form"
       .form-group
         label for="first_name" First Name
         input.form-control#first_name name="first_name" type="text" placeholder="First Name"
+        .form-input-padding
       .form-group
         label for="last_name" Last Name
         input.form-control#last_name name="last_name" type="text" placeholder="Last Name"
+        .form-input-padding
       .form-group
         label for="email" name="email" Email address
-        input.form-control#email name="email" type="email" placeholder="Email"
+        input.form-control#email required="required" name="email" type="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" data-delay="1000" placeholder="Email" data-error="Invalid email address"
+        .help-block.with-errors.form-input-padding
       button.btn.btn-default type="button" onclick="postForm(this, 'connections/create')"
         i.fa.fa-plus.fa-fw
         span Create Connection
   .col-md-3
-
+javascript:
+  $('#modal-content form').validator();

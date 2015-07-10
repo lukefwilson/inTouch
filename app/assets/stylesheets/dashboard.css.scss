@@ -49,6 +49,7 @@ $sidebar-background-color: #222;
   }
 }
 
+/* Sidebar Styles */
 #sidebar-wrapper {
   z-index: 1000;
   position: fixed;
@@ -89,8 +90,6 @@ $sidebar-background-color: #222;
     border-right: none;
   }
 }
-
-/* Sidebar Styles */
 
 @include keyframes(nav-out) {
   from {
@@ -189,6 +188,7 @@ $sidebar-background-color: #222;
   }
 }
 
+// Main Page/Editor styles
 #page-wrapper {
   width: 100%;
   position: absolute;
@@ -220,6 +220,7 @@ $sidebar-background-color: #222;
   }
 }
 
+// Modal View styles
 #modal-view-wrapper {
   position: fixed;
   height: 100%;
@@ -248,7 +249,56 @@ $sidebar-background-color: #222;
     }
 }
 
+// Form styles
 button i {
   margin-right: 5px;
   margin-left: -5px;
+}
+
+.form-control {
+  margin-bottom: -20px;
+}
+
+.form-input-padding {
+  padding-top: 16px;
+  height: 24px;
+}
+
+@include keyframes(error-out) {
+  from {
+     opacity: 1;
+     @include calc(padding-left, "50% - 100px");
+  }
+  to {
+    opacity: 0;
+    padding-left: 100%;
+  }
+}
+
+@include keyframes(error-in) {
+  from {
+    opacity: 0;
+    padding-left: 0px;
+  }
+  to {
+     opacity: 1;
+     @include calc(padding-left, "50% - 100px");
+  }
+}
+
+.help-block.with-errors.form-input-padding {
+  opacity: 0;
+  padding-left: 0px;
+  @include animation(error-out 0.5s ease);
+
+  .form-group.has-error & {
+     opacity: 1;
+     @include calc(padding-left, "50% - 100px");
+     @include animation(error-in 0.5s ease);
+  }
+
+  li {
+    width: 200px;
+    text-align: center;
+  }
 }

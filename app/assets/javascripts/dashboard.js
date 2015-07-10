@@ -86,8 +86,7 @@ var ready = function() {
   routie({
     'connections/:id': function(id) {
       if (id === "new") {
-        var template = HandlebarsTemplates['connections/new']({title: "title tittss"});
-        console.log(template);
+        var template = HandlebarsTemplates['connections/new']();
         showModal(template);
       } else {
         console.log("YO!" + id);
@@ -128,7 +127,6 @@ var ready = function() {
 
   $('#modal-view-wrapper').click(function(e) {
     // close modal on click
-    console.log(e.target);
     if (e.target.id === 'modal-view-wrapper') {
       routie('');
     }

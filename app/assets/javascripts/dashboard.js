@@ -48,9 +48,9 @@ var switchToNav = function(navName) {
   }
 }
 
-var postForm = function(formButton, postUrl) {
-  var $form = $(formButton.parentElement);
-  var $formButton = $(formButton);
+var postForm = function(form, postUrl) {
+  var $form = $(form);
+  var $formButton = $form.find('button:submit');
 
   $formButton.prop('disabled', true);
 

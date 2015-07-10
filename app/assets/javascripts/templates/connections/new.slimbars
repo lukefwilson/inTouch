@@ -13,9 +13,18 @@
         label for="email" name="email" Email address
         input.form-control#email required="required" name="email" type="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" data-delay="1000" placeholder="Email" data-error="Invalid email address"
         .help-block.with-errors.form-input-padding
-      button.btn.btn-default type="button" onclick="postForm(this, 'connections/create')"
-        i.fa.fa-plus.fa-fw
-        span Create Connection
+      .form-group
+        button.btn.btn-default type="submit"
+          i.fa.fa-plus.fa-fw
+          span Create Connection
   .col-md-3
 javascript:
-  $('#modal-content form').validator();
+  $('#modal-content form').validator().on('submit', function (e) {
+    if (!e.isDefaultPrevented()) {
+      postForm(this, 'connections/create');
+    }
+
+    e.originalEvent.returnValue = false;
+    e.preventDefault();
+    return false;
+  })

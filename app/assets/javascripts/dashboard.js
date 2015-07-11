@@ -6,6 +6,7 @@ var groupsId = 'groups';
 var emailsId = 'emails';
 
 var $popdown;
+var $sidebarWrapper;
 
 var modalVisible = false;
 var showModal = function(template) {
@@ -40,7 +41,7 @@ var deselectNavContent = function(navName) {
   $('#nav-' + navName).removeClass('selected');
 }
 
-var switchToNav = function(navName) {
+var animateNavSwitch = function(navName) {
   if (navName === connectionsId) {
     selectNavContent(connectionsId);
     deselectNavContent(groupsId);
@@ -54,6 +55,21 @@ var switchToNav = function(navName) {
     deselectNavContent(groupsId);
     selectNavContent(emailsId);
   }
+}
+
+var switchToNav = function(navName) {
+  if ($sidebarWrapper.scrollTop() > 0) {
+    $sidebarWrapper.scrollTo(0, 100,
+      {
+        onAfter : function() {
+          animateNavSwitch(navName);
+        }
+      }
+    );
+  } else {
+    animateNavSwitch(navName);
+  }
+
 }
 
 var postForm = function(form, postUrl) {
@@ -84,6 +100,8 @@ var postForm = function(form, postUrl) {
 
 var ready = function() {
   $popdown = $('#popdown-wrapper');
+  $sidebarWrapper = $('#sidebar-wrapper');
+
   $popdown.on('click', function(e) {
     $popdown.removeClass('open success error notice')
   });

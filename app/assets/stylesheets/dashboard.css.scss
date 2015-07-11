@@ -264,6 +264,12 @@ button i {
   height: 24px;
 }
 
+.form-group.submit-button {
+  text-align: center;
+  padding-top: 6px;
+  margin-bottom: -6px;
+}
+
 @include keyframes(error-out) {
   from {
      opacity: 1;
@@ -303,6 +309,7 @@ button i {
   }
 }
 
+// Popdown Styles
 #popdown-wrapper {
   position: fixed;
   width: 320px;
@@ -341,3 +348,5 @@ button i {
     color: rgba(0, 0, 0, 0.5);
   }
 }
+
+

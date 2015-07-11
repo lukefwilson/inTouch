@@ -13,7 +13,7 @@
         label for="email" name="email" Email address
         input.form-control#email required="required" name="email" type="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" data-delay="1000" placeholder="Email" data-error="Invalid email address"
         .help-block.with-errors.form-input-padding
-      .form-group
+      .form-group.submit-button
         button.btn.btn-default type="submit"
           i.fa.fa-plus.fa-fw
           span Create Connection

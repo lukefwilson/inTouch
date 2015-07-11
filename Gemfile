@@ -47,6 +47,8 @@ gem 'seed_dump'
 
 gem 'handlebars_assets'
 
+gem 'underscore-rails'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

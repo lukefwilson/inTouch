@@ -8,6 +8,13 @@ var emailsId = 'emails';
 var $popdown;
 var $sidebarWrapper;
 
+var ConnectionModel = Backbone.Model.extend({
+  url: '/connections/create'
+});
+// var ConnectionCollection = Backbone.Collection.extend({
+//   model: ConnectionModel
+// });
+
 var modalVisible = false;
 var showModal = function(template) {
   $('#modal-content').html(template)
@@ -73,30 +80,37 @@ var switchToNav = function(navName) {
   }
 }
 
+$.formToJSON = function($form) {
+  var array = $form.serializeArray();
+  var json = {};
+
+  $.each(array, function() {
+      json[this.name] = this.value || '';
+  });
+
+  return json;
+}
+
 var postForm = function(form, postUrl) {
   var $form = $(form);
+
   var $formButton = $form.find('button:submit');
-
   $formButton.prop('disabled', true);
-
   $buttonIcon = $formButton.children('i');
   $buttonIcon.removeClass('fa-plus').addClass('fa-circle-o-notch fa-spin')
 
-  $.ajax({
-    type: "POST",
-    url: postUrl,
-    data: $form.serialize(),
-    dataType: "json",
-    success: function(response){
-      routie('connections/' + response.id);
-    },
-    error: function(response) {
+  var formData = $.formToJSON($form);
+  var model = new ConnectionModel(formData);
+  model.save({}, {
+    error: function() {
       $buttonIcon.removeClass('fa-circle-o-notch fa-spin').addClass('fa-plus')
       $formButton.prop('disabled', false);
       showPopdownError();
+    },
+    success: function (response) {
+      routie('connections/' + response.id);
     }
   });
-  return false;
 }
 
 var ready = function() {

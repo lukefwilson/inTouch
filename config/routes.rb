@@ -1,22 +1,4 @@
 Rails.application.routes.draw do
-  get 'connections/index'
-
-  get 'connections/new'
-
-  get 'connections/create'
-
-  get 'connections/show'
-
-  get 'connections/edit'
-
-  get 'connections/update'
-
-  get 'connections/destroy'
-
-  get 'dashboard/index'
-
-  get 'account/edit'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -30,6 +12,7 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   resources :users, :only => [:show, :create, :update, :destroy]
+  resources :connections
 
   post 'login' => 'users#login'
   get 'logout' => 'users#logout'

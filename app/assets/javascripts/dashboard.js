@@ -5,6 +5,8 @@ var connectionsId = 'connections';
 var groupsId = 'groups';
 var emailsId = 'emails';
 
+var $popdown;
+
 var modalVisible = false;
 var showModal = function(template) {
   $('#modal-content').html(template)
@@ -14,6 +16,12 @@ var showModal = function(template) {
 var hideModal = function() {
   $('#modal-view-wrapper').fadeOut();
   modalVisible = false;
+}
+
+var showPopdownError = function(customText) {
+  var html = customText || 'Something went wrong. Please try again!';
+  $popdown.addClass('open error');
+  $popdown.children().eq(0).html(html);
 }
 
 var selectNavContent = function(navName) {
@@ -68,14 +76,17 @@ var postForm = function(form, postUrl) {
     error: function(response) {
       $buttonIcon.removeClass('fa-circle-o-notch fa-spin').addClass('fa-plus')
       $formButton.prop('disabled', false);
-      // show validation errors
-      // response.responseJSON.errors
+      showPopdownError();
     }
   });
   return false;
 }
 
 var ready = function() {
+  $popdown = $('#popdown-wrapper');
+  $popdown.on('click', function(e) {
+    $popdown.removeClass('open success error notice')
+  });
 
   $("#sidebar-toggle").click(function(e) {
     e.preventDefault();

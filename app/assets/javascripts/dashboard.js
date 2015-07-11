@@ -58,18 +58,19 @@ var animateNavSwitch = function(navName) {
 }
 
 var switchToNav = function(navName) {
-  if ($sidebarWrapper.scrollTop() > 0) {
-    $sidebarWrapper.scrollTo(0, 100,
-      {
-        onAfter : function() {
-          animateNavSwitch(navName);
+  if ($sidebarWrapper.width() > 100) {
+    if ($sidebarWrapper.scrollTop() > 0) {
+      $sidebarWrapper.scrollTo(0, 100,
+        {
+          onAfter : function() {
+            animateNavSwitch(navName);
+          }
         }
-      }
-    );
-  } else {
-    animateNavSwitch(navName);
+      );
+    } else {
+      animateNavSwitch(navName);
+    }
   }
-
 }
 
 var postForm = function(form, postUrl) {

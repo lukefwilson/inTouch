@@ -72,7 +72,7 @@ $sidebar-background-color: #222;
   height: $sidebar-nav-height;
   font-size: 24px;
   border-bottom: 1px lighten($sidebar-nav-background-color, 20%) solid;
-  z-index: 1500;
+  z-index: 1100;
   @include transform(translateZ(0));
   position: fixed;
   top: 0px;
@@ -83,7 +83,18 @@ $sidebar-background-color: #222;
     background-color: transparentize($sidebar-nav-background-color, 0.1);
     color: $salmon-color;
     border-right: 1px lighten($sidebar-nav-background-color, 20%) solid;
-    cursor: pointer;
+
+    cursor: default;
+    @media #{$large-screen} {
+      cursor: pointer;
+    }
+
+    #wrapper.toggled & {
+      cursor: pointer;
+      @media #{$large-screen} {
+        cursor: default;
+      }
+    }
 
     &:hover, &.selected {
       background-color: lighten(transparentize($sidebar-nav-background-color, 0.1), 20%);
@@ -176,6 +187,7 @@ $sidebar-background-color: #222;
   background-color: lighten($sidebar-nav-background-color, 20%);
   cursor: pointer;
   border-bottom-right-radius: 3px;
+  z-index: 1200;
 
   i {
     @include transform(rotate(-90deg));

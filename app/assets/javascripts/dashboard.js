@@ -1,6 +1,23 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+/* Utilities */
+$.formToJSON = function($form) {
+  var array = $form.serializeArray();
+  var json = {};
 
+  $.each(array, function() {
+      json[this.name] = this.value || '';
+  });
+
+  return json;
+};
+$.parseListData = function($listEl) {
+  var models = [];
+  $listEl.children().each(function (i, listItem) {
+    models.push(listItem.dataset);
+  });
+  return models;
+};
+
+/* Logic */
 var sidebarNav = {
   connectionsId: 'connections',
   groupsId: 'groups',
@@ -75,25 +92,6 @@ var sidebarNav = {
   }
 };
 
-$.formToJSON = function($form) {
-  var array = $form.serializeArray();
-  var json = {};
-
-  $.each(array, function() {
-      json[this.name] = this.value || '';
-  });
-
-  return json;
-};
-
-var parseModelsFromListElement = function($listEl) {
-  var models = [];
-  $listEl.children().each(function (i, listItem) {
-    models.push(listItem.dataset);
-  });
-  return models;
-}
-
 var postNewModelWithForm = function(form, type) {
   var $form = $(form);
 
@@ -124,7 +122,7 @@ var postNewModelWithForm = function(form, type) {
 
 var ready = function() {
   connectionCollection = new InTouch.Collections.Connections(
-      parseModelsFromListElement($("#connections ul"))
+      $.parseListData($("#connections ul"))
     );
 
   sidebarConnectionsListView = new InTouch.Views.ConnectionsList({

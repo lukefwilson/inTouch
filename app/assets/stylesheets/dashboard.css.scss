@@ -224,6 +224,7 @@ $sidebar-background-color: #222;
   #page-header {
     height: $sidebar-nav-height;
     background-color: lighten($sidebar-nav-background-color, 20%);
+    z-index: 1600;
 
     a i {
       color: $salmon-color;

@@ -40,4 +40,9 @@ $large-screen: "(min-width : 768px)";
   cursor: default;
 }
 
+// quick hack for fixing sidebar nav z-index on firefox
+* {
+  position: relative;
+}
+
 @import "*";

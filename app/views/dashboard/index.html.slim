@@ -16,7 +16,7 @@
       ul
         - for connection in @user.connections
           li data-first-name="#{connection.first_name}" data-last-name="#{connection.last_name}" data-email="#{connection.email}" data-id="#{connection.id}"
-            a href="#connections/#{connection.id}" = connection.email
+            = render partial: "templates/connections/sidebar_list_item", locals: {id: connection.id, email: connection.email}
     .sidebar-content#groups.hidden
       .sidebar-top-content.text-center
         a href="#groups/new"

@@ -1,6 +1,8 @@
 InTouch.Views.Modal = Backbone.View.extend({
 
-  events: {},
+  events: {
+    'click' : 'handleClick',
+  },
 
   $contentEl: null,
 
@@ -20,5 +22,11 @@ InTouch.Views.Modal = Backbone.View.extend({
   hide: function() {
     this.$el.fadeOut();
     this.visible = false;
-  }
+  },
+
+  handleClick: function(e) {
+    if (e.target === this.$el[0]) {
+      routie('');
+    }
+  },
 });

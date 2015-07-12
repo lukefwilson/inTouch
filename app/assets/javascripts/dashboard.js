@@ -146,6 +146,8 @@ var ready = function() {
     $("#sidebar-toggle i").toggleClass("toggled");
   });
 
+  sidebarNav.initialize();
+
   routie({
     'connections/:id': function(id) {
       if (id === "new") {
@@ -170,15 +172,6 @@ var ready = function() {
     },
     '*': function() {
       modalView.hide();
-    }
-  });
-
-  sidebarNav.initialize();
-
-  $('#modal-view-wrapper').click(function(e) {
-    // close modal on click
-    if (e.target.id === 'modal-view-wrapper') {
-      routie('');
     }
   });
 };

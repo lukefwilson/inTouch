@@ -9,23 +9,26 @@
           i.fa.fa-users.fa-fw
         td#nav-emails
           i.fa.fa-envelope-o.fa-fw
-    ul.sidebar-content#connections.selected
-      li.no-indent.text-center
+    .sidebar-content#connections.selected
+      .sidebar-top-content.text-center
         a href="#connections/new"
           i.fa.fa-plus
-      - for connection in @user.connections
-        li
-          a href="#connections/#{connection.id}" = connection.email
-    ul.sidebar-content#groups.hidden
-      li.no-indent.text-center
+      ul
+        - for connection in @user.connections
+          li data-first-name="#{connection.first_name}" data-last-name="#{connection.last_name}" data-email="#{connection.email}" data-id="#{connection.id}"
+            a href="#connections/#{connection.id}" = connection.email
+    .sidebar-content#groups.hidden
+      .sidebar-top-content.text-center
         a href="#groups/new"
           i.fa.fa-plus
-      - for group in @user.groups
+      ul
+        - for group in @user.groups
+          li
+            a href="#groups/#{group.id}" = "#{group.name} #{group.connections.count} members"
+    .sidebar-content#emails.hidden
+      ul
         li
-          a href="#groups/#{group.id}" = "#{group.name} #{group.connections.count} members"
-    ul.sidebar-content#emails.hidden
-      li
-        a href="#emails" Emails
+          a href="#emails" Emails
 
   /! Page Content
   #page-wrapper

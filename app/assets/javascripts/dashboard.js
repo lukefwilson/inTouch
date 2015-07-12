@@ -8,12 +8,43 @@ var emailsId = 'emails';
 var $popdown;
 var $sidebarWrapper;
 
+var connections;
+var sidebarConnections;
+
 var ConnectionModel = Backbone.Model.extend({
-  url: '/connections/create'
+  url: '/connections'
 });
-// var ConnectionCollection = Backbone.Collection.extend({
-//   model: ConnectionModel
-// });
+var ConnectionCollection = Backbone.Collection.extend({
+  model: ConnectionModel
+});
+
+var SidebarConnectionView = Backbone.View.extend({
+  tagName: "li",
+
+  template: HandlebarsTemplates['connections/sidebar_list_item'],
+
+  events: {},
+
+  initialize: function() {
+    this.listenTo(this.model, "change", this.render);
+  },
+
+  render: function() {
+    this.$el.html(this.template(this.model.attributes));
+    return this;
+  }
+});
+
+var SidebarConnectionsView = Backbone.View.extend({
+  render: function(){
+    this.$el.html('');
+    this.collection.each(function(connection){
+      var connectionView = new SidebarConnectionView({ model: connection });
+      this.$el.append(connectionView.render().el);
+    }, this);
+    return this;
+  }
+});
 
 var modalVisible = false;
 var showModal = function(template) {
@@ -91,7 +122,7 @@ $.formToJSON = function($form) {
   return json;
 }
 
-var postForm = function(form, postUrl) {
+var postNewModelWithForm = function(form, type) {
   var $form = $(form);
 
   var $formButton = $form.find('button:submit');
@@ -100,7 +131,11 @@ var postForm = function(form, postUrl) {
   $buttonIcon.removeClass('fa-plus').addClass('fa-circle-o-notch fa-spin')
 
   var formData = $.formToJSON($form);
-  var model = new ConnectionModel(formData);
+
+  var model;
+  if (type === 'connections') {
+    model = new ConnectionModel(formData);
+  }
   model.save({}, {
     error: function() {
       $buttonIcon.removeClass('fa-circle-o-notch fa-spin').addClass('fa-plus')
@@ -108,14 +143,27 @@ var postForm = function(form, postUrl) {
       showPopdownError();
     },
     success: function (response) {
-      routie('connections/' + response.id);
+      connections.add(model); // TODO clean up with events
+      sidebarConnections.render();
+      routie(type + '/' + response.id);
     }
   });
+}
+
+var parseModels = function($listEl) {
+  var models = [];
+  $listEl.children().each(function (i, listItem) {
+    models.push(listItem.dataset);
+  });
+  return models;
 }
 
 var ready = function() {
   $popdown = $('#popdown-wrapper');
   $sidebarWrapper = $('#sidebar-wrapper');
+
+  connections = new ConnectionCollection(parseModels($("#connections ul")));
+  sidebarConnections = new SidebarConnectionsView({el: $("#connections ul"), collection: connections});
 
   $popdown.on('click', function(e) {
     $popdown.removeClass('open success error notice')

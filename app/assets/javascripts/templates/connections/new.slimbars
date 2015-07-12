@@ -21,7 +21,7 @@
 javascript:
   $('#modal-content form').validator().on('submit', function (e) {
     if (!e.isDefaultPrevented()) {
-      postForm(this, 'connections/create');
+      postNewModelWithForm(this, 'connections');
     }
 
     e.originalEvent.returnValue = false;

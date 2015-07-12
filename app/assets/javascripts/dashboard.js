@@ -5,14 +5,7 @@ var connectionsId = 'connections';
 var groupsId = 'groups';
 var emailsId = 'emails';
 
-var $popdown;
 var $sidebarWrapper;
-
-var showPopdownError = function(customText) {
-  var html = customText || 'Something went wrong. Please try again!';
-  $popdown.addClass('open error');
-  $popdown.children().eq(0).html(html);
-}
 
 var selectNavContent = function(navName) {
   var $navContent = $('#' + navName);
@@ -73,6 +66,14 @@ $.formToJSON = function($form) {
   return json;
 }
 
+var parseModelsFromListElement = function($listEl) {
+  var models = [];
+  $listEl.children().each(function (i, listItem) {
+    models.push(listItem.dataset);
+  });
+  return models;
+}
+
 var postNewModelWithForm = function(form, type) {
   var $form = $(form);
 
@@ -91,7 +92,7 @@ var postNewModelWithForm = function(form, type) {
     error: function() {
       $buttonIcon.removeClass('fa-circle-o-notch fa-spin').addClass('fa-plus')
       $formButton.prop('disabled', false);
-      showPopdownError();
+      popdownView.show();
     },
     success: function (response) {
       connectionCollection.add(model); // TODO clean up with events
@@ -101,16 +102,7 @@ var postNewModelWithForm = function(form, type) {
   });
 }
 
-var parseModelsFromListElement = function($listEl) {
-  var models = [];
-  $listEl.children().each(function (i, listItem) {
-    models.push(listItem.dataset);
-  });
-  return models;
-}
-
 var ready = function() {
-  $popdown = $('#popdown-wrapper');
   $sidebarWrapper = $('#sidebar-wrapper');
 
   connectionCollection = new InTouch.Collections.Connections(
@@ -127,8 +119,9 @@ var ready = function() {
       contentEl: $('#modal-content')
     });
 
-  $popdown.on('click', function(e) {
-    $popdown.removeClass('open success error notice')
+  popdownView = new InTouch.Views.Popdown({
+    el: $('#popdown-wrapper'),
+    contentEl: $('.popdown-content:first')
   });
 
   $("#sidebar-toggle").click(function(e) {

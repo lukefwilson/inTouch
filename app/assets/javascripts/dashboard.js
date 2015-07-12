@@ -1,59 +1,79 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-var connectionsId = 'connections';
-var groupsId = 'groups';
-var emailsId = 'emails';
+var sidebarNav = {
+  connectionsId: 'connections',
+  groupsId: 'groups',
+  emailsId: 'emails',
+  $sidebarWrapper: null,
 
-var $sidebarWrapper;
+  initialize: function() {
+    sidebarNav.$sidebarWrapper = $('#sidebar-wrapper');
 
-var selectNavContent = function(navName) {
-  var $navContent = $('#' + navName);
-  $navContent.addClass('selected');
-  $navContent.removeClass('not-selected');
-  $('#nav-' + navName).addClass('selected');
+    $('#nav-' + sidebarNav.connectionsId).click(function(e) {
+      e.preventDefault();
+      sidebarNav.switchToNav(sidebarNav.connectionsId);
+    });
 
-  $navContent.removeClass('hidden'); // for initial load
-}
+    $('#nav-' + sidebarNav.groupsId).click(function(e) {
+      e.preventDefault();
+      sidebarNav.switchToNav(sidebarNav.groupsId);
+    });
 
-var deselectNavContent = function(navName) {
-  var $navContent = $('#' + navName);
-  $navContent.removeClass('selected');
-  $navContent.addClass('not-selected');
-  $('#nav-' + navName).removeClass('selected');
-}
+    $('#nav-' + sidebarNav.emailsId).click(function(e) {
+      e.preventDefault();
+      sidebarNav.switchToNav(sidebarNav.emailsId);
+    });
+  },
 
-var animateNavSwitch = function(navName) {
-  if (navName === connectionsId) {
-    selectNavContent(connectionsId);
-    deselectNavContent(groupsId);
-    deselectNavContent(emailsId);
-  } else if (navName === groupsId) {
-    deselectNavContent(connectionsId);
-    selectNavContent(groupsId);
-    deselectNavContent(emailsId);
-  } else if (navName === emailsId) {
-    deselectNavContent(connectionsId);
-    deselectNavContent(groupsId);
-    selectNavContent(emailsId);
-  }
-}
+  selectNavContent: function(navName) {
+    var $navContent = $('#' + navName);
+    $navContent.addClass('selected');
+    $navContent.removeClass('not-selected');
+    $('#nav-' + navName).addClass('selected');
 
-var switchToNav = function(navName) {
-  if ($sidebarWrapper.width() > 100) {
-    if ($sidebarWrapper.scrollTop() > 0) {
-      $sidebarWrapper.scrollTo(0, 100,
-        {
-          onAfter : function() {
-            animateNavSwitch(navName);
+    $navContent.removeClass('hidden'); // for initial load
+  },
+
+  deselectNavContent: function(navName) {
+    var $navContent = $('#' + navName);
+    $navContent.removeClass('selected');
+    $navContent.addClass('not-selected');
+    $('#nav-' + navName).removeClass('selected');
+  },
+
+  animateNavSwitch: function(navName) {
+    if (navName === sidebarNav.connectionsId) {
+      sidebarNav.selectNavContent(sidebarNav.connectionsId);
+      sidebarNav.deselectNavContent(sidebarNav.groupsId);
+      sidebarNav.deselectNavContent(sidebarNav.emailsId);
+    } else if (navName === sidebarNav.groupsId) {
+      sidebarNav.deselectNavContent(sidebarNav.connectionsId);
+      sidebarNav.selectNavContent(sidebarNav.groupsId);
+      sidebarNav.deselectNavContent(sidebarNav.emailsId);
+    } else if (navName === sidebarNav.emailsId) {
+      sidebarNav.deselectNavContent(sidebarNav.connectionsId);
+      sidebarNav.deselectNavContent(sidebarNav.groupsId);
+      sidebarNav.selectNavContent(sidebarNav.emailsId);
+    }
+  },
+
+  switchToNav: function(navName) {
+    if (sidebarNav.$sidebarWrapper.width() > 100) {
+      if (sidebarNav.$sidebarWrapper.scrollTop() > 0) {
+        sidebarNav.$sidebarWrapper.scrollTo(0, 100,
+          {
+            onAfter : function() {
+              sidebarNav.animateNavSwitch(navName);
+            }
           }
-        }
-      );
-    } else {
-      animateNavSwitch(navName);
+        );
+      } else {
+        sidebarNav.animateNavSwitch(navName);
+      }
     }
   }
-}
+};
 
 $.formToJSON = function($form) {
   var array = $form.serializeArray();
@@ -64,7 +84,7 @@ $.formToJSON = function($form) {
   });
 
   return json;
-}
+};
 
 var parseModelsFromListElement = function($listEl) {
   var models = [];
@@ -100,11 +120,9 @@ var postNewModelWithForm = function(form, type) {
       routie(type + '/' + response.id);
     }
   });
-}
+};
 
 var ready = function() {
-  $sidebarWrapper = $('#sidebar-wrapper');
-
   connectionCollection = new InTouch.Collections.Connections(
       parseModelsFromListElement($("#connections ul"))
     );
@@ -157,20 +175,7 @@ var ready = function() {
     }
   });
 
-  $('#nav-' + connectionsId).click(function(e) {
-    e.preventDefault();
-    switchToNav(connectionsId);
-  });
-
-  $('#nav-' + groupsId).click(function(e) {
-    e.preventDefault();
-    switchToNav(groupsId);
-  });
-
-  $('#nav-' + emailsId).click(function(e) {
-    e.preventDefault();
-    switchToNav(emailsId);
-  });
+  sidebarNav.initialize();
 
   $('#modal-view-wrapper').click(function(e) {
     // close modal on click

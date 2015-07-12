@@ -11,41 +11,6 @@ var $sidebarWrapper;
 var connections;
 var sidebarConnections;
 
-var ConnectionModel = Backbone.Model.extend({
-  url: '/connections'
-});
-var ConnectionCollection = Backbone.Collection.extend({
-  model: ConnectionModel
-});
-
-var SidebarConnectionView = Backbone.View.extend({
-  tagName: "li",
-
-  template: HandlebarsTemplates['connections/sidebar_list_item'],
-
-  events: {},
-
-  initialize: function() {
-    this.listenTo(this.model, "change", this.render);
-  },
-
-  render: function() {
-    this.$el.html(this.template(this.model.attributes));
-    return this;
-  }
-});
-
-var SidebarConnectionsView = Backbone.View.extend({
-  render: function(){
-    this.$el.html('');
-    this.collection.each(function(connection){
-      var connectionView = new SidebarConnectionView({ model: connection });
-      this.$el.append(connectionView.render().el);
-    }, this);
-    return this;
-  }
-});
-
 var modalVisible = false;
 var showModal = function(template) {
   $('#modal-content').html(template)
@@ -134,7 +99,7 @@ var postNewModelWithForm = function(form, type) {
 
   var model;
   if (type === 'connections') {
-    model = new ConnectionModel(formData);
+    model = new InTouch.Models.Connection(formData);
   }
   model.save({}, {
     error: function() {
@@ -162,8 +127,8 @@ var ready = function() {
   $popdown = $('#popdown-wrapper');
   $sidebarWrapper = $('#sidebar-wrapper');
 
-  connections = new ConnectionCollection(parseModels($("#connections ul")));
-  sidebarConnections = new SidebarConnectionsView({el: $("#connections ul"), collection: connections});
+  connections = new InTouch.Collections.Connections(parseModels($("#connections ul")));
+  sidebarConnections = new InTouch.Views.ConnectionsList({el: $("#connections ul"), collection: connections});
 
   $popdown.on('click', function(e) {
     $popdown.removeClass('open success error notice')

@@ -113,8 +113,9 @@ var postNewModelWithForm = function(form, type) {
       popdownView.show();
     },
     success: function (response) {
-      connectionCollection.add(model); // TODO clean up with events
-      sidebarConnectionsListView.render();
+      if (type === 'connections') {
+        connectionCollection.add(model);
+      }
       routie(type + '/' + response.id);
     }
   });

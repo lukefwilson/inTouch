@@ -8,20 +8,6 @@ var emailsId = 'emails';
 var $popdown;
 var $sidebarWrapper;
 
-var connections;
-var sidebarConnections;
-
-var modalVisible = false;
-var showModal = function(template) {
-  $('#modal-content').html(template)
-  $('#modal-view-wrapper').fadeIn();
-  modalVisible = true;
-}
-var hideModal = function() {
-  $('#modal-view-wrapper').fadeOut();
-  modalVisible = false;
-}
-
 var showPopdownError = function(customText) {
   var html = customText || 'Something went wrong. Please try again!';
   $popdown.addClass('open error');
@@ -108,14 +94,14 @@ var postNewModelWithForm = function(form, type) {
       showPopdownError();
     },
     success: function (response) {
-      connections.add(model); // TODO clean up with events
-      sidebarConnections.render();
+      connectionCollection.add(model); // TODO clean up with events
+      sidebarConnectionsListView.render();
       routie(type + '/' + response.id);
     }
   });
 }
 
-var parseModels = function($listEl) {
+var parseModelsFromListElement = function($listEl) {
   var models = [];
   $listEl.children().each(function (i, listItem) {
     models.push(listItem.dataset);
@@ -127,8 +113,19 @@ var ready = function() {
   $popdown = $('#popdown-wrapper');
   $sidebarWrapper = $('#sidebar-wrapper');
 
-  connections = new InTouch.Collections.Connections(parseModels($("#connections ul")));
-  sidebarConnections = new InTouch.Views.ConnectionsList({el: $("#connections ul"), collection: connections});
+  connectionCollection = new InTouch.Collections.Connections(
+      parseModelsFromListElement($("#connections ul"))
+    );
+
+  sidebarConnectionsListView = new InTouch.Views.ConnectionsList({
+      el: $("#connections ul"),
+      collection: connectionCollection
+    });
+
+  modalView = new InTouch.Views.Modal({
+      el: $('#modal-view-wrapper'),
+      contentEl: $('#modal-content')
+    });
 
   $popdown.on('click', function(e) {
     $popdown.removeClass('open success error notice')
@@ -144,14 +141,14 @@ var ready = function() {
     'connections/:id': function(id) {
       if (id === "new") {
         var template = HandlebarsTemplates['connections/new']();
-        showModal(template);
+        modalView.show(template);
       } else {
         console.log("YO!" + id);
       }
     },
     'groups/:id': function(id) {
       if (id === "new") {
-        showModal();
+        modalView.show();
       } else {
         console.log("YO group" + id);
       }
@@ -160,10 +157,10 @@ var ready = function() {
       console.log("YO email" + id);
     },
     'settings': function(id) {
-      showModal();
+      modalView.show();
     },
     '*': function() {
-      hideModal();
+      modalView.hide();
     }
   });
 

@@ -155,7 +155,16 @@ var ready = function() {
         var template = HandlebarsTemplates['connections/new']();
         modalView.show(template);
       } else {
-        console.log("YO!" + id);
+        var template = HandlebarsTemplates['connections/detail']({
+          email: [{
+            subject: 'one',
+            body: '<p>hey!</p><h3>yo!</h3>'
+          },{
+            subject: 'two',
+            body: '<p>hey!</p><h3>yo!</h3>'
+          }]
+        });
+        modalView.show(template);
       }
     },
     'groups/:id': function(id) {

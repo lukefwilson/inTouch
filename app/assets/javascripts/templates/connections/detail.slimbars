@@ -1,0 +1,11 @@
+.email-list.panel-group role="tablist"
+  | {{#each email}}
+  .panel.panel-default
+    .panel-heading role="tab"
+      h4.panel-title
+        a aria-controls="collapse{{@index}}" aria-expanded="false" data-toggle="collapse" href="#collapse{{@index}}" role="button"
+          | {{subject}}
+    .panel-collapse.collapse id="collapse{{@index}}" role="tabpanel"
+      .panel-body
+        | {{{body}}}
+  | {{/each}}

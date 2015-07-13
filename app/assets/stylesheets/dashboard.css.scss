@@ -261,11 +261,12 @@ $sidebar-background-color: #222;
 
     #modal-content-container {
       position: relative;
-      margin: 20px;
+      margin: 40px;
       background-color: #fff;
       overflow: scroll;
       border-radius: 3px;
       min-width: 200px;
+      @include calc(height, "100% - 120px");
 
       #modal-content {
         padding: 20px;

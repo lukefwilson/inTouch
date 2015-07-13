@@ -160,7 +160,7 @@ var ready = function() {
     },
     'groups/:id': function(id) {
       if (id === "new") {
-        modalView.show();
+        modalView.show('<p>new new new</p>');
       } else {
         console.log("YO group" + id);
       }

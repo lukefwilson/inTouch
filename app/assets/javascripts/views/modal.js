@@ -14,8 +14,19 @@ InTouch.Views.Modal = Backbone.View.extend({
   },
 
   show: function(innerHTML) {
-    this.$contentEl.html(innerHTML)
-    this.$el.fadeIn();
+    if (this.visible) {
+      var $content = this.$contentEl;
+      this.$contentEl.fadeOut({
+        duration: 200,
+        done: function() {
+          $content.html(innerHTML);
+          $content.fadeIn();
+        }
+      });
+    } else {
+      this.$contentEl.html(innerHTML)
+      this.$el.fadeIn(200);
+    }
     this.visible = true;
   },
 
